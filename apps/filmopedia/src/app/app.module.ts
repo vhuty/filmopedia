@@ -5,9 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
+import { PrimeNGModule } from './modules/primeng.module';
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    PrimeNGModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
