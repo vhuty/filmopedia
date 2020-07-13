@@ -1,6 +1,20 @@
 import { NgModule } from '@angular/core';
 
-const modules = [];
+import {
+  NbLayoutModule,
+  NbSearchModule,
+  NbCardModule,
+  NbButtonModule,
+  NbIconModule,
+} from '@nebular/theme';
+
+const modules = [
+  NbLayoutModule,
+  NbSearchModule,
+  NbButtonModule,
+  NbCardModule,
+  NbIconModule,
+];
 
 @NgModule({
   imports: [...modules],
