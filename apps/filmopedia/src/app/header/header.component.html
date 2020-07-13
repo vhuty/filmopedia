@@ -1,0 +1,11 @@
+<div fxLayoutAlign="center center">
+  <img class="logo" src="../assets/images/main-logo.svg" alt="main-logo" />
+  <button nbButton ghost shape="rectangle" status="success" routerLink="/">
+    {{ projectName }}
+  </button>
+</div>
+<nb-search
+  type="rotate-layout"
+  placeholder="Search movie.."
+  ngClass.gt-sm="search-btn_desktop"
+></nb-search>

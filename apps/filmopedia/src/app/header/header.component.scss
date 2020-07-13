@@ -1,0 +1,9 @@
+.logo {
+  width: 40px;
+  margin-right: 5px;
+}
+
+nb-search.search-btn_desktop button::after {
+  content: 'Search movie';
+  margin-left: 5px;
+}

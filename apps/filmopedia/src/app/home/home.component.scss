@@ -1,0 +1,95 @@
+@import '../../themes.scss';
+
+.genres-list {
+  overflow-x: auto;
+  padding: 10px;
+
+  .genre-card {
+    height: 100px;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+
+    .wrapper {
+      text-transform: uppercase;
+      background: no-repeat center center;
+      background-size: cover;
+      transition: all 0.5s;
+    }
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-transform: capitalize;
+      text-shadow: 1px 1px 1px #000;
+      z-index: 10;
+    }
+
+    &:hover .wrapper,
+    &:active .wrapper {
+      transform: scale(1.15);
+    }
+  }
+}
+
+.movie-card {
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: nb-theme(background-basic-color-1);
+  }
+
+  &_mobile {
+    $cardsPerRow: 2;
+    $spacer: 10px;
+    max-width: calc(100% / #{$cardsPerRow} - #{$spacer});
+    margin-bottom: $spacer;
+
+    &:nth-child(odd) {
+      margin-right: $spacer;
+    }
+  }
+
+  &_tablet {
+    $cardsPerRow: 4;
+    $spacer: 12.5px;
+    max-width: calc(100% / #{$cardsPerRow} - #{$spacer});
+    margin-bottom: $spacer;
+
+    &:not(:nth-child(#{$cardsPerRow}n)) {
+      margin-right: $spacer;
+    }
+  }
+
+  &_desktop {
+    $moviesPerRow: 5;
+    $spacer: 15px;
+    max-width: calc(100% / #{$moviesPerRow} - #{$spacer});
+    margin-bottom: $spacer;
+
+    &:not(:nth-child(#{$moviesPerRow}n)) {
+      margin-right: $spacer;
+    }
+  }
+
+  &_desktop-large {
+    $moviesPerRow: 6;
+    $spacer: 20px;
+    max-width: calc(100% / #{$moviesPerRow} - #{$spacer});
+    margin-bottom: $spacer;
+
+    &:not(:nth-child(#{$moviesPerRow}n)) {
+      margin-right: $spacer;
+    }
+  }
+
+  .movie-name {
+    margin: 5px 0;
+    word-break: break-word;
+  }
+}

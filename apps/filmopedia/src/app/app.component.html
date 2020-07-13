@@ -1,8 +1,16 @@
-<div style="text-align: center;">
-  <h1>Welcome to filmopedia!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-  />
-</div>
-<div>Message: {{ hello$ | async | json }}</div>
+<nb-layout>
+  <nb-layout-header fixed>
+    <filmopedia-header
+      fxFlex
+      fxLayoutAlign="space-between center"
+    ></filmopedia-header>
+  </nb-layout-header>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <nb-layout-footer>
+    <filmopedia-footer></filmopedia-footer>
+  </nb-layout-footer>
+</nb-layout>
