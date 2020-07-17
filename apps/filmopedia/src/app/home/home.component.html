@@ -21,10 +21,11 @@
   <section fxLayout="column">
     <span class="h5 text-warning">Top Movies:</span>
     <div fxLayout="row wrap">
-      <div
+      <filmopedia-movie-card
         *ngFor="let movie of movies"
         fxLayout="column"
         class="movie-card"
+        [movie]="movie"
         ngClass.xs="movie-card_mobile"
         ngClass.sm="movie-card_tablet"
         ngClass.md="movie-card_desktop"
@@ -37,7 +38,7 @@
           <span>{{ movie.countries[0] }},&nbsp;</span>
           <span>{{ movie.genres[0] }}</span>
         </div>
-      </div>
+      </filmopedia-movie-card>
     </div>
   </section>
 </main>

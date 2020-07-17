@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
   }
 
   getGenreWallpaperPath(genre: string): string {
-    console.log(genre);
     return `url('../../assets/images/genres/${genre}.jpg')`;
   }
 }
