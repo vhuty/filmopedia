@@ -80,7 +80,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "nx affected:lint"
+      "pre-commit": "nx affected:lint",
+      "pre-push": "nx affected:test"
     }
   }
 }
