@@ -3,6 +3,8 @@ export interface Message {
 }
 
 /**
+ * Defines Movie object.
+ * @property {string} id - unique id of the movie.
  * @property {string} name - name of the movie.
  * @property {string[]} genres - list of movie's genres.
  * @property {string} year - year when the movie came out.
@@ -10,6 +12,7 @@ export interface Message {
  * @property {string} posterURL - URL of the movie poster image.
  */
 export interface Movie {
+  id: string;
   name: string;
   genres: string[];
   year: string;

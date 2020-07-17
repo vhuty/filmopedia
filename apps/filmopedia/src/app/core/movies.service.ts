@@ -30,6 +30,7 @@ export class MoviesService {
   constructor() {
     for (let i = 0; i < 13; i++) {
       this.movies.push({
+        id: `${i}`,
         name: 'Avatar',
         genres: ['Action', 'Sci-Fi'],
         year: '2009',
