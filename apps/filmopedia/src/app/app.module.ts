@@ -13,9 +13,10 @@ import { FooterComponent } from './footer/footer.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NebularUIModule } from './modules/nebular-ui.module';
+import { MovieCardComponent } from './components/movie-card/movie-card.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, FooterComponent, MovieCardComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
