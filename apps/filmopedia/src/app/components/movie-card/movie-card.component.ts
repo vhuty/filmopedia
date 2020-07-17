@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { Movie } from '@filmopedia/api-interfaces';
+import { MoviesService } from './../../core/movies.service';
 
 @Component({
   selector: 'filmopedia-movie-card',
@@ -8,8 +10,13 @@ import { Movie } from '@filmopedia/api-interfaces';
 })
 export class MovieCardComponent implements OnInit {
   @Input() movie: Movie;
+  isFavoriteMovie = false;
 
-  constructor() {}
+  constructor(public moviesService: MoviesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.moviesService.getFavoriteMovies().subscribe((moviesId: string[]) => {
+      this.isFavoriteMovie = moviesId.includes(this.movie.id);
+    });
+  }
 }

@@ -5,3 +5,18 @@
   <span>{{ movie.countries[0] }},&nbsp;</span>
   <span>{{ movie.genres[0] }}</span>
 </div>
+<nb-icon
+  fxHide
+  [fxShow]="isFavoriteMovie"
+  class="favorite-movie-icon"
+  status="warning"
+  [icon]="isFavoriteMovie ? 'star' : 'star-outline'"
+  [nbTooltip]="isFavoriteMovie ? 'Remove From Favorites' : 'Add To Favorites'"
+  [options]="{ animation: { type: 'pulse' } }"
+  (click)="
+    isFavoriteMovie
+      ? moviesService.removeMovieFromFavorites(movie.id)
+      : moviesService.addMovieToFavorites(movie.id)
+  "
+>
+</nb-icon>
