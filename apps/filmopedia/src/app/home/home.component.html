@@ -31,13 +31,6 @@
         ngClass.md="movie-card_desktop"
         ngClass.gt-md="movie-card_desktop-large"
       >
-        <img class="poster" [src]="movie.posterURL" [alt]="movie.name" />
-        <span class="movie-name h6 text-success">{{ movie.name }}</span>
-        <div fxLayout="row" class="text-hint paragraph-2">
-          <span>{{ movie.year }},&nbsp;</span>
-          <span>{{ movie.countries[0] }},&nbsp;</span>
-          <span>{{ movie.genres[0] }}</span>
-        </div>
       </filmopedia-movie-card>
     </div>
   </section>
