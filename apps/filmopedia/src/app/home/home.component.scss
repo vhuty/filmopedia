@@ -2,17 +2,15 @@
 
 .genres-list {
   overflow-x: auto;
-  padding: 10px;
 
   .genre-card {
     height: 100px;
-    margin-bottom: 10px;
+    margin: 10px;
     position: relative;
     cursor: pointer;
     overflow: hidden;
 
     .wrapper {
-      text-transform: uppercase;
       background: no-repeat center center;
       background-size: cover;
       transition: all 0.5s;
@@ -24,7 +22,7 @@
       top: 50%;
       transform: translate(-50%, -50%);
       text-transform: capitalize;
-      text-shadow: 1px 1px 1px #000;
+      text-shadow: 2px 2px 1px #000;
       z-index: 10;
     }
 
