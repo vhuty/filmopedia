@@ -7,19 +7,19 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
+import { HomePageComponent } from './home-page/home-page.component';
 import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MovieCardComponent } from './components/movie-card/movie-card.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NebularUIModule } from './modules/nebular-ui.module';
-import { MovieCardComponent } from './components/movie-card/movie-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomePageComponent,
     HeaderComponent,
-    HomeComponent,
     FooterComponent,
     MovieCardComponent,
   ],

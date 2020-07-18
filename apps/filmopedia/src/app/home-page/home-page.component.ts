@@ -3,17 +3,17 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { Movie } from '@filmopedia/api-interfaces';
-import { MoviesService } from './../core/movies.service';
+import { MoviesService } from '../core/movies.service';
 
 @Component({
-  selector: 'filmopedia-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'filmopedia-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomePageComponent implements OnInit {
   projectName = '';
-  moviesGenres: string[] = [];
-  movies: Movie[] = [];
+  moviesGenres: string[];
+  movies: Movie[];
 
   constructor(
     private activeRoute: ActivatedRoute,
