@@ -19,3 +19,11 @@ export interface Movie {
   countries: string[];
   posterURL: string;
 }
+
+/**
+ * Defines Genre object.
+ */
+export interface Genre {
+  id: number;
+  name: string;
+}

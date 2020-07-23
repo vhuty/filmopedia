@@ -7,6 +7,7 @@ import {
   NbButtonModule,
   NbIconModule,
   NbTooltipModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 
 const modules = [
@@ -16,6 +17,7 @@ const modules = [
   NbCardModule,
   NbIconModule,
   NbTooltipModule,
+  NbSpinnerModule,
 ];
 
 @NgModule({
