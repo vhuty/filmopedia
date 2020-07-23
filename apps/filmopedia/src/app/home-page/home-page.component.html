@@ -1,22 +1,35 @@
 <main fxLayout="column">
   <section fxLayout="column">
     <span class="h5 text-warning">Genres:</span>
-    <div fxLayout="row" fxLayoutGap="15px" class="genres-list">
+    <div
+      fxLayout="row"
+      class="genres-list"
+      *ngIf="genres$ | async as genres; else genresLoader"
+    >
       <nb-card
-        *ngFor="let genre of moviesGenres"
+        *ngFor="let genre of genres"
         class="genre-card h5"
         fxFlex="200px"
       >
         <span>
-          {{ genre }}
+          {{ genre.name }}
         </span>
         <div
           class="wrapper"
           fxFlex
-          [style.background-image]="getGenreWallpaperPath(genre)"
+          [style.background-image]="getGenreWallpaperPath(genre.name)"
         ></div>
       </nb-card>
     </div>
+    <ng-template #genresLoader>
+      <div
+        fxFlex="50px"
+        nbSpinner="true"
+        nbSpinnerSize="giant"
+        nbSpinnerStatus="warning"
+        nbSpinnerMessage="Loading genres..."
+      ></div>
+    </ng-template>
   </section>
   <section fxLayout="column">
     <span class="h5 text-warning">Top Movies:</span>
@@ -31,13 +44,6 @@
         ngClass.md="movie-card_desktop"
         ngClass.gt-md="movie-card_desktop-large"
       >
-        <img class="poster" [src]="movie.posterURL" [alt]="movie.name" />
-        <span class="movie-name h6 text-success">{{ movie.name }}</span>
-        <div fxLayout="row" class="text-hint paragraph-2">
-          <span>{{ movie.year }},&nbsp;</span>
-          <span>{{ movie.countries[0] }},&nbsp;</span>
-          <span>{{ movie.genres[0] }}</span>
-        </div>
       </filmopedia-movie-card>
     </div>
   </section>
