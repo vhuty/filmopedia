@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
-import { Movie } from '@filmopedia/api-interfaces';
+import { Genre } from '@filmopedia/api-interfaces';
 import { MoviesService } from '../core/movies.service';
 
 @Component({
@@ -12,8 +13,7 @@ import { MoviesService } from '../core/movies.service';
 })
 export class HomePageComponent implements OnInit {
   projectName = '';
-  moviesGenres: string[];
-  movies: Movie[];
+  genres$: Observable<Genre[]>;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -25,11 +25,11 @@ export class HomePageComponent implements OnInit {
     this.activeRoute.data.subscribe((data: Data) => {
       this.titleService.setTitle(data['routeTitle']);
     });
-    this.moviesGenres = this.moviesService.getMoviesGenres();
-    this.movies = this.moviesService.getMovies();
+    this.genres$ = this.moviesService.getMoviesGenres();
   }
 
   getGenreWallpaperPath(genre: string): string {
-    return `url('../../assets/images/genres/${genre}.jpg')`;
+    const genreFileName = genre.toLowerCase().replace(/\s/g, '_');
+    return `url('../../assets/images/genres/${genreFileName}.jpg')`;
   }
 }

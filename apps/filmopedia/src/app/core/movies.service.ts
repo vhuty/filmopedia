@@ -1,46 +1,17 @@
 import { Injectable } from '@angular/core';
-
-import { Movie } from '@filmopedia/api-interfaces';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
+
+import { Genre } from '@filmopedia/api-interfaces';
+import { environment } from './../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
-  private moviesGenres: string[] = [
-    'action',
-    'adventures',
-    'animation',
-    'anime',
-    'comedy',
-    'detective',
-    'documentary',
-    'drama',
-    'horror',
-    'family',
-    'fantasy',
-    'historical',
-    'medical',
-    'musical',
-    'romance',
-    'sport',
-    'fiction',
-    'war',
-    'western',
-  ];
-  private movies: Movie[] = [];
+  private readonly baseURL = 'https://api.themoviedb.org/3';
   private favoriteMovies$ = new BehaviorSubject<string[]>([]);
 
-  constructor() {
-    for (let i = 0; i < 13; i++) {
-      this.movies.push({
-        id: `${i}`,
-        name: 'Avatar',
-        genres: ['Action', 'Sci-Fi'],
-        year: '2009',
-        countries: ['USA'],
-        posterURL: 'https://movieposters2.com/images/1397414-b.jpg',
-      });
-    }
-
+  constructor(private http: HttpClient) {
     const favMoviesStr = localStorage.getItem('favoriteMovies');
     if (favMoviesStr) {
       this.favoriteMovies$.next(JSON.parse(favMoviesStr));
@@ -50,12 +21,10 @@ export class MoviesService {
     });
   }
 
-  public getMovies(): Movie[] {
-    return this.movies;
-  }
-
-  public getMoviesGenres(): string[] {
-    return this.moviesGenres;
+  public getMoviesGenres(): Observable<Genre[]> {
+    return this.http
+      .get(`${this.baseURL}/genre/movie/list?api_key=${environment.apiKey}`)
+      .pipe(pluck('genres'));
   }
 
   public getFavoriteMovies(): Observable<string[]> {

@@ -1,22 +1,35 @@
 <main fxLayout="column">
   <section fxLayout="column">
     <span class="h5 text-warning">Genres:</span>
-    <div fxLayout="row" class="genres-list">
+    <div
+      fxLayout="row"
+      class="genres-list"
+      *ngIf="genres$ | async as genres; else genresLoader"
+    >
       <nb-card
-        *ngFor="let genre of moviesGenres"
+        *ngFor="let genre of genres"
         class="genre-card h5"
         fxFlex="200px"
       >
         <span>
-          {{ genre }}
+          {{ genre.name }}
         </span>
         <div
           class="wrapper"
           fxFlex
-          [style.background-image]="getGenreWallpaperPath(genre)"
+          [style.background-image]="getGenreWallpaperPath(genre.name)"
         ></div>
       </nb-card>
     </div>
+    <ng-template #genresLoader>
+      <div
+        fxFlex="50px"
+        nbSpinner="true"
+        nbSpinnerSize="giant"
+        nbSpinnerStatus="warning"
+        nbSpinnerMessage="Loading genres..."
+      ></div>
+    </ng-template>
   </section>
   <section fxLayout="column">
     <span class="h5 text-warning">Top Movies:</span>
