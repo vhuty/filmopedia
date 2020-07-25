@@ -15,8 +15,13 @@ export class MovieCardComponent implements OnInit {
   constructor(public moviesService: MoviesService) {}
 
   ngOnInit(): void {
-    this.moviesService.getFavoriteMovies().subscribe((moviesId: string[]) => {
+    this.moviesService.getFavoriteMovies().subscribe((moviesId: number[]) => {
       this.isFavoriteMovie = moviesId.includes(this.movie.id);
     });
+  }
+
+  getCorrectMoviePosterPath(): string {
+    const posterPath = this.movie.poster_path || this.movie.backdrop_path;
+    return `https://image.tmdb.org/t/p/w440_and_h660_face${posterPath}`;
   }
 }

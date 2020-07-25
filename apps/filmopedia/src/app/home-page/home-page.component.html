@@ -31,20 +31,90 @@
       ></div>
     </ng-template>
   </section>
-  <section fxLayout="column">
-    <span class="h5 text-warning">Top Movies:</span>
-    <div fxLayout="row wrap">
-      <filmopedia-movie-card
-        *ngFor="let movie of movies"
-        fxLayout="column"
-        class="movie-card"
-        [movie]="movie"
-        ngClass.xs="movie-card_mobile"
-        ngClass.sm="movie-card_tablet"
-        ngClass.md="movie-card_desktop"
-        ngClass.gt-md="movie-card_desktop-large"
+  <section fxLayout="column" #moviesSection>
+    <span class="h5 text-warning">Movies:</span>
+    <div *ngIf="movies$ | async as movies; else moviesLoader">
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <filmopedia-movie-card
+          *ngFor="let movie of movies"
+          fxLayout="column"
+          class="movie-card"
+          [movie]="movie"
+          ngClass.xs="movie-card_mobile"
+          ngClass.sm="movie-card_tablet"
+          ngClass.md="movie-card_desktop"
+          ngClass.gt-md="movie-card_desktop-large"
+        >
+        </filmopedia-movie-card>
+      </div>
+      <div
+        fxLayoutAlign="center center"
+        fxLayoutGap="20px"
+        class="movies-navigation"
+        ngClass.xs="movies-navigation_mobile"
       >
-      </filmopedia-movie-card>
+        <button
+          nbButton
+          status="primary"
+          size="small"
+          (click)="navigateMoviesPage(1)"
+          [disabled]="currMoviesPage === 1"
+        >
+          <nb-icon
+            icon="arrowhead-left-outline"
+            [options]="{ animation: { type: 'shake' } }"
+          ></nb-icon>
+        </button>
+        <button
+          nbButton
+          outline
+          status="primary"
+          size="small"
+          (click)="navigateMoviesPage(currMoviesPage - 1)"
+          [disabled]="currMoviesPage === 1"
+        >
+          <nb-icon
+            outline
+            icon="arrow-ios-back-outline"
+            [options]="{ animation: { type: 'shake' } }"
+          ></nb-icon>
+        </button>
+        <span>{{ currMoviesPage }}</span>
+        <button
+          nbButton
+          outline
+          status="primary"
+          size="small"
+          (click)="navigateMoviesPage(currMoviesPage + 1)"
+          [disabled]="currMoviesPage === totalMoviesPages"
+        >
+          <nb-icon
+            icon="arrow-ios-forward-outline"
+            [options]="{ animation: { type: 'shake' } }"
+          ></nb-icon>
+        </button>
+        <button
+          nbButton
+          status="primary"
+          size="small"
+          (click)="navigateMoviesPage(totalMoviesPages)"
+          [disabled]="currMoviesPage === totalMoviesPages"
+        >
+          <nb-icon
+            icon="arrowhead-right-outline"
+            [options]="{ animation: { type: 'shake' } }"
+          ></nb-icon>
+        </button>
+      </div>
     </div>
+    <ng-template #moviesLoader>
+      <div
+        fxFlex="50px"
+        nbSpinner="true"
+        nbSpinnerSize="giant"
+        nbSpinnerStatus="warning"
+        nbSpinnerMessage="Loading movies..."
+      ></div>
+    </ng-template>
   </section>
 </main>

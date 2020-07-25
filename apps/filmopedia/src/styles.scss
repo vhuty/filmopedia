@@ -13,4 +13,7 @@ img {
 nb-spinner {
   background: none !important;
 }
+[nbButton]:focus {
+  box-shadow: none !important;
+}
 /* You can add global styles to this file, and also import other style files */
