@@ -8,6 +8,7 @@ import {
   NbIconModule,
   NbTooltipModule,
   NbSpinnerModule,
+  NbBadgeModule,
 } from '@nebular/theme';
 
 const modules = [
@@ -18,6 +19,7 @@ const modules = [
   NbIconModule,
   NbTooltipModule,
   NbSpinnerModule,
+  NbBadgeModule,
 ];
 
 @NgModule({
