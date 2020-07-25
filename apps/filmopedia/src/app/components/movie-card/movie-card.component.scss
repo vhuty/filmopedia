@@ -1,9 +1,11 @@
 @import '../../../themes.scss';
 
 :host.movie-card {
+  $spacer: 15px;
   padding: 10px;
   position: relative;
   transition: all 0.5s;
+  margin: 0 ($spacer / 2) $spacer;
 
   &:hover {
     background-color: nb-theme(background-basic-color-1);
@@ -15,51 +17,32 @@
 
   &_mobile {
     $cardsPerRow: 2;
-    $spacer: 10px;
-    max-width: calc(100% / #{$cardsPerRow} - #{$spacer});
-    margin-bottom: $spacer;
-
-    &:nth-child(odd) {
-      margin-right: $spacer;
-    }
+    flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
   }
 
   &_tablet {
     $cardsPerRow: 4;
-    $spacer: 12.5px;
-    max-width: calc(100% / #{$cardsPerRow} - #{$spacer});
-    margin-bottom: $spacer;
-
-    &:not(:nth-child(#{$cardsPerRow}n)) {
-      margin-right: $spacer;
-    }
+    flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
   }
 
   &_desktop {
     $moviesPerRow: 5;
-    $spacer: 15px;
-    max-width: calc(100% / #{$moviesPerRow} - #{$spacer});
-    margin-bottom: $spacer;
-
-    &:not(:nth-child(#{$moviesPerRow}n)) {
-      margin-right: $spacer;
-    }
+    flex-basis: calc(100% / #{$moviesPerRow} - #{$spacer});
   }
 
   &_desktop-large {
     $moviesPerRow: 6;
-    $spacer: 20px;
-    max-width: calc(100% / #{$moviesPerRow} - #{$spacer});
-    margin-bottom: $spacer;
+    flex-basis: calc(100% / #{$moviesPerRow} - #{$spacer});
+  }
 
-    &:not(:nth-child(#{$moviesPerRow}n)) {
-      margin-right: $spacer;
-    }
+  .poster-wrapper img {
+    width: 100%;
   }
 
   .movie-name {
-    margin: 5px 0;
+    display: inline-block;
     word-break: break-word;
+    text-decoration: none;
   }
 
   .favorite-movie-icon {
