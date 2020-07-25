@@ -1,23 +1,25 @@
-export interface Message {
-  message: string;
+export interface MoviesResponse {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: Movie[];
 }
 
-/**
- * Defines Movie object.
- * @property {string} id - unique id of the movie.
- * @property {string} name - name of the movie.
- * @property {string[]} genres - list of movie's genres.
- * @property {string} year - year when the movie came out.
- * @property {string[]} countries - list of countries which has developed the movie.
- * @property {string} posterURL - URL of the movie poster image.
- */
 export interface Movie {
-  id: string;
-  name: string;
-  genres: string[];
-  year: string;
-  countries: string[];
-  posterURL: string;
+  id: number;
+  title: string;
+  original_title: string;
+  original_language: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  overview: string;
+  release_date: string;
+  genre_ids: number[];
+  popularity: number;
+  vote_count: number;
+  vote_average: number;
+  video: boolean;
+  adult: boolean;
 }
 
 /**

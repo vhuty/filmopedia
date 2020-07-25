@@ -1,10 +1,10 @@
-<img [src]="movie.posterURL" [alt]="movie.name" />
-<span class="movie-name h6 text-success">{{ movie.name }}</span>
-<div fxLayout="row" class="text-hint paragraph-2">
-  <span>{{ movie.year }},&nbsp;</span>
-  <span>{{ movie.countries[0] }},&nbsp;</span>
-  <span>{{ movie.genres[0] }}</span>
-</div>
+<a>
+  <img [src]="getCorrectMoviePosterPath()" [alt]="movie.title" />
+</a>
+<a class="movie-name h6 text-success">
+  {{ movie.original_title }}
+</a>
+<span class="text-hint">{{ movie.release_date | date: 'yyyy' }}</span>
 <nb-icon
   fxHide
   [fxShow]="isFavoriteMovie"
@@ -20,3 +20,4 @@
   "
 >
 </nb-icon>
+<nb-badge [text]="movie.vote_average" status="success"> </nb-badge>
