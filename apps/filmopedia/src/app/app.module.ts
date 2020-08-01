@@ -7,15 +7,22 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { MovieCardComponent } from './components/movie-card/movie-card.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NebularUIModule } from './modules/nebular-ui.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    HomePageComponent,
+    HeaderComponent,
+    FooterComponent,
+    MovieCardComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

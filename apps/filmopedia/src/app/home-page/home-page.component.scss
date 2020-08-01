@@ -1,0 +1,41 @@
+@import '../../themes.scss';
+
+.genres-list {
+  overflow-x: auto;
+
+  .genre-card {
+    height: 100px;
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+
+    .wrapper {
+      background: no-repeat center center;
+      background-size: cover;
+      transition: all 0.5s;
+    }
+
+    span {
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-shadow: 2px 2px 1px #000;
+      text-align: center;
+      z-index: 10;
+    }
+
+    &:hover .wrapper,
+    &:active .wrapper {
+      transform: scale(1.15);
+    }
+  }
+}
+
+.movies-navigation {
+  &_mobile {
+    padding-bottom: 10px;
+  }
+}

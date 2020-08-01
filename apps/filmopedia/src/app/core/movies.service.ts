@@ -1,49 +1,61 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { pluck, switchMap } from 'rxjs/operators';
 
-import { Movie } from '@filmopedia/api-interfaces';
+import { Genre, MoviesResponse } from '@filmopedia/api-interfaces';
+import { environment } from './../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
-  private moviesGenres: string[] = [
-    'action',
-    'adventures',
-    'animation',
-    'anime',
-    'comedy',
-    'detective',
-    'documentary',
-    'drama',
-    'horror',
-    'family',
-    'fantasy',
-    'historical',
-    'medical',
-    'musical',
-    'romance',
-    'sport',
-    'fiction',
-    'war',
-    'western',
-  ];
-  private movies: Movie[] = [];
+  private readonly baseURL = 'https://api.themoviedb.org/3';
+  private favoriteMovies$ = new BehaviorSubject<number[]>([]);
+  private currMoviesPage$ = new BehaviorSubject<number>(1);
 
-  constructor() {
-    for (let i = 0; i < 13; i++) {
-      this.movies.push({
-        name: 'Avatar',
-        genres: ['Action', 'Sci-Fi'],
-        year: '2009',
-        countries: ['USA'],
-        posterURL: 'https://movieposters2.com/images/1397414-b.jpg',
-      });
+  constructor(private http: HttpClient) {
+    const favMoviesStr = localStorage.getItem('favoriteMovies');
+    if (favMoviesStr) {
+      this.favoriteMovies$.next(JSON.parse(favMoviesStr));
     }
+    this.favoriteMovies$.subscribe((moviesIds: number[]) => {
+      localStorage.setItem('favoriteMovies', JSON.stringify(moviesIds));
+    });
+    this.currMoviesPage$.subscribe();
   }
 
-  public getMovies(): Movie[] {
-    return this.movies;
+  public getMoviesGenres(): Observable<Genre[]> {
+    return this.http
+      .get(`${this.baseURL}/genre/movie/list?api_key=${environment.apiKey}`)
+      .pipe(pluck('genres'));
   }
 
-  public getMoviesGenres(): string[] {
-    return this.moviesGenres;
+  public getMovies(): Observable<MoviesResponse> {
+    return this.currMoviesPage$.pipe(
+      switchMap((page: number) =>
+        this.http.get<MoviesResponse>(
+          `${this.baseURL}/movie/popular?api_key=${environment.apiKey}&page=${page}`
+        )
+      )
+    );
+  }
+
+  public getFavoriteMovies(): Observable<number[]> {
+    return this.favoriteMovies$.asObservable();
+  }
+
+  public addMovieToFavorites(movieId: number): void {
+    const favMoviesIds = this.favoriteMovies$.getValue();
+    favMoviesIds.push(movieId);
+    this.favoriteMovies$.next(favMoviesIds);
+  }
+
+  public removeMovieFromFavorites(movieId: number): void {
+    const favMoviesIds = this.favoriteMovies$.getValue();
+    favMoviesIds.splice(favMoviesIds.indexOf(movieId), 1);
+    this.favoriteMovies$.next(favMoviesIds);
+  }
+
+  public changeMoviesPage(page: number): void {
+    this.currMoviesPage$.next(page);
   }
 }

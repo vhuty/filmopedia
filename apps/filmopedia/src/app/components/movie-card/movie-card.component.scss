@@ -1,0 +1,54 @@
+@import '../../../themes.scss';
+
+:host.movie-card {
+  $spacer: 15px;
+  padding: 10px;
+  position: relative;
+  transition: all 0.5s;
+  margin: 0 ($spacer / 2) $spacer;
+
+  &:hover {
+    background-color: nb-theme(background-basic-color-1);
+
+    .favorite-movie-icon {
+      display: inline-block !important;
+    }
+  }
+
+  &_mobile {
+    $cardsPerRow: 2;
+    flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+  }
+
+  &_tablet {
+    $cardsPerRow: 4;
+    flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+  }
+
+  &_desktop {
+    $moviesPerRow: 5;
+    flex-basis: calc(100% / #{$moviesPerRow} - #{$spacer});
+  }
+
+  &_desktop-large {
+    $moviesPerRow: 6;
+    flex-basis: calc(100% / #{$moviesPerRow} - #{$spacer});
+  }
+
+  .poster-wrapper img {
+    width: 100%;
+  }
+
+  .movie-name {
+    display: inline-block;
+    word-break: break-word;
+    text-decoration: none;
+  }
+
+  .favorite-movie-icon {
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+}
