@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Message } from '@filmopedia/api-interfaces';
+import { Message } from '@api-interfaces';
 
 @Injectable()
 export class AppService {
