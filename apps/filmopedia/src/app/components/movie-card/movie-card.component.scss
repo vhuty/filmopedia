@@ -1,7 +1,15 @@
+@import '~@angular/flex-layout/mq';
 @import '../../../themes.scss';
 
-:host.movie-card {
+@mixin movie-card-width($cardsPerRow, $spacer) {
+  flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+}
+
+:host {
   $spacer: 15px;
+
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   position: relative;
   transition: all 0.5s;
@@ -15,24 +23,20 @@
     }
   }
 
-  &_mobile {
-    $cardsPerRow: 2;
-    flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+  @include layout-bp(xs) {
+    @include movie-card-width(2, $spacer);
   }
 
-  &_tablet {
-    $cardsPerRow: 4;
-    flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+  @include layout-bp(sm) {
+    @include movie-card-width(4, $spacer);
   }
 
-  &_desktop {
-    $moviesPerRow: 5;
-    flex-basis: calc(100% / #{$moviesPerRow} - #{$spacer});
+  @include layout-bp(md) {
+    @include movie-card-width(5, $spacer);
   }
 
-  &_desktop-large {
-    $moviesPerRow: 6;
-    flex-basis: calc(100% / #{$moviesPerRow} - #{$spacer});
+  @include layout-bp(gt-md) {
+    @include movie-card-width(6, $spacer);
   }
 
   .poster-wrapper img {

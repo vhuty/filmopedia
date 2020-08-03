@@ -35,16 +35,7 @@
     <span class="h5 text-warning">Movies:</span>
     <div *ngIf="movies$ | async as movies; else moviesLoader">
       <div fxLayout="row wrap" fxLayoutAlign="start start">
-        <filmopedia-movie-card
-          *ngFor="let movie of movies"
-          fxLayout="column"
-          class="movie-card"
-          [movie]="movie"
-          ngClass.xs="movie-card_mobile"
-          ngClass.sm="movie-card_tablet"
-          ngClass.md="movie-card_desktop"
-          ngClass.gt-md="movie-card_desktop-large"
-        >
+        <filmopedia-movie-card *ngFor="let movie of movies" [movie]="movie">
         </filmopedia-movie-card>
       </div>
       <div
