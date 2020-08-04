@@ -14,6 +14,7 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
 
 import { AppRoutingModule } from './app-routing.module';
 import { NebularUIModule } from './modules/nebular-ui.module';
+import { MovieDurationPipe } from './core/movie-duration.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NebularUIModule } from './modules/nebular-ui.module';
     HeaderComponent,
     FooterComponent,
     MovieCardComponent,
+    MovieDurationPipe,
   ],
   imports: [
     BrowserModule,
