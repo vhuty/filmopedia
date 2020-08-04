@@ -1,0 +1,226 @@
+<main *ngIf="movie && !errorMsg" fxLayout="column">
+  <section
+    fxLayoutAlign="start start"
+    fxLayout.gt-sm="row"
+    fxLayoutGap.sm="0.5rem"
+    fxLayoutGap.gt-sm="1rem"
+  >
+    <nb-card fxHide.xs fxFlex="300px" fxFlex.gt-md="350px">
+      <nb-card-body fxLayout="column">
+        <img [src]="moviePosterSrc" [alt]="movie.title" />
+      </nb-card-body>
+      <nb-card-footer fxLayout="column">
+        <button
+          *ngIf="!isFavoriteMovie"
+          nbButton
+          hero
+          status="primary"
+          (click)="moviesService.addMovieToFavorites(movie.id)"
+        >
+          <nb-icon icon="plus-circle-outline"></nb-icon>
+          Add to favorites
+        </button>
+        <button
+          *ngIf="isFavoriteMovie"
+          nbButton
+          hero
+          outline
+          status="danger"
+          (click)="moviesService.removeMovieFromFavorites(movie.id)"
+        >
+          <nb-icon icon="trash-2-outline"></nb-icon>
+          Remove from favorites
+        </button>
+      </nb-card-footer>
+    </nb-card>
+    <nb-card class="card-movie-info" fxFlex fxFlexAlign="stretch">
+      <nb-card-header fxLayout="column">
+        <div fxLayoutAlign="start center" fxLayoutGap="10px">
+          <span class="h4 text-warning">
+            {{ movie.title }}
+          </span>
+          <a
+            *ngIf="movie.homepage as homepage"
+            [href]="homepage"
+            target="_blank"
+          >
+            <nb-icon icon="external-link-outline"></nb-icon>
+          </a>
+        </div>
+        <span *ngIf="movie.tagline as tagline" class="text-hint">
+          "{{ tagline }}"
+        </span>
+        <div
+          fxHide
+          fxShow.xs
+          fxLayout="column"
+          fxLayoutGap="10px"
+          fxFlexOffset="10px"
+        >
+          <img [src]="moviePosterSrc" [alt]="movie.title" />
+          <button
+            *ngIf="!isFavoriteMovie"
+            nbButton
+            hero
+            status="primary"
+            size="small"
+            (click)="moviesService.addMovieToFavorites(movie.id)"
+          >
+            <nb-icon icon="plus-circle-outline"></nb-icon>
+            Add to favorites
+          </button>
+          <button
+            *ngIf="isFavoriteMovie"
+            nbButton
+            hero
+            outline
+            status="danger"
+            size="small"
+            (click)="moviesService.removeMovieFromFavorites(movie.id)"
+          >
+            <nb-icon icon="trash-2-outline"></nb-icon>
+            Remove from favorites
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <ul fxLayout="column" fxLayoutGap="10px">
+          <li *ngIf="movie.vote_average as rating">
+            <span class="info-label text-success">Rating: </span>
+            <div class="info-data">
+              <nb-progress-bar
+                [value]="movieRating"
+                [status]="movieRating <= 50 ? 'warning' : 'success'"
+              >
+                {{ rating }} / 10
+              </nb-progress-bar>
+            </div>
+          </li>
+          <li *ngIf="movie.release_date as releaseDate; else movieStatusBlock">
+            <span class="info-label text-success">Release: </span>
+            <div class="info-data">{{ releaseDate | date }}</div>
+          </li>
+          <ng-template #movieStatusBlock>
+            <li>
+              <span class="info-label text-success">Status: </span>
+              <div class="info-data">{{ movie.status }}</div>
+            </li>
+          </ng-template>
+          <li *ngIf="movie.runtime as runtime">
+            <span class="info-label text-success">Duration: </span>
+            <div class="info-data">{{ runtime | movieDuration }}</div>
+          </li>
+          <li *ngIf="movie.budget as budget">
+            <span class="info-label text-success">Budget: </span>
+            <div class="info-data">
+              {{ budget | currency: 'USD':'symbol':'1.0' }}
+            </div>
+          </li>
+          <li *ngIf="movie.revenue as revenue">
+            <span class="info-label text-success">Revenue: </span>
+            <div class="info-data">
+              {{ revenue | currency: 'USD':'symbol':'1.0' }}
+            </div>
+          </li>
+          <li *ngIf="movie.genres.length">
+            <span class="info-label text-success">Genres: </span>
+            <div class="info-data">
+              <span *ngFor="let genre of movie.genres; last as isLast">
+                {{ isLast ? genre.name : genre.name + ', ' }}
+              </span>
+            </div>
+          </li>
+          <li *ngIf="movie.production_companies.length">
+            <span class="info-label text-success">Companies: </span>
+            <div class="info-data">
+              <span
+                *ngFor="
+                  let company of movie.production_companies;
+                  last as isLast
+                "
+              >
+                {{ isLast ? company.name : company.name + ', ' }}
+              </span>
+            </div>
+          </li>
+          <li *ngIf="movie.production_countries.length">
+            <span class="info-label text-success">Countries: </span>
+            <div class="info-data">
+              <span
+                *ngFor="
+                  let country of movie.production_countries;
+                  last as isLast
+                "
+              >
+                {{ isLast ? country.name : country.name + ', ' }}
+              </span>
+            </div>
+          </li>
+        </ul>
+      </nb-card-body>
+      <nb-card-footer fxLayout="column" fxLayoutGap="10px">
+        <div fxLayout="column" fxLayoutGap="5px">
+          <span class="h6 text-success">Overview</span>
+          <span>
+            {{ movie.overview }}
+          </span>
+        </div>
+        <div
+          *ngIf="movieTrailerSrc"
+          fxLayout="column"
+          fxLayoutGap="5px"
+          fxHide
+          fxShow.xs
+        >
+          <span class="h6 text-success">Movie Trailer</span>
+          <iframe
+            class="movie-trailer"
+            [src]="movieTrailerSrc"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </section>
+  <section fxHide.xs>
+    <nb-card>
+      <nb-card-body>
+        <iframe
+          [src]="movieTrailerSrc"
+          class="movie-trailer"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </nb-card-body>
+    </nb-card>
+  </section>
+</main>
+
+<div
+  *ngIf="!movie && !errorMsg"
+  fxFlexFill
+  nbSpinner="true"
+  nbSpinnerSize="giant"
+  nbSpinnerStatus="warning"
+  nbSpinnerMessage="Loading movie data..."
+></div>
+
+<div
+  *ngIf="errorMsg"
+  class="error-block"
+  fxFlexFill
+  fxLayout="row"
+  fxLayout.lt-sm="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap.gt-sm="10px"
+>
+  <nb-icon
+    icon="alert-circle-outline"
+    status="danger"
+    [options]="{ animation: { type: 'flip' } }"
+  ></nb-icon>
+  <h1 class="text-hint">
+    {{ errorMsg }}
+  </h1>
+</div>
