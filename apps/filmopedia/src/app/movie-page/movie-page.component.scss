@@ -1,0 +1,82 @@
+@import '~@angular/flex-layout/mq';
+
+main {
+  @include layout-bp(xl) {
+    width: 70%;
+    margin: auto;
+  }
+
+  nb-card {
+    @include layout-bp(xs) {
+      nb-card-header,
+      nb-card-body,
+      nb-card-footer {
+        padding: 1rem;
+      }
+    }
+
+    @include layout-bp(gt-xs) {
+      margin-bottom: 1rem;
+    }
+
+    &.card-movie-info ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: flex;
+        flex-direction: column;
+
+        @include layout-bp(gt-xs) {
+          flex-direction: row;
+
+          .info-label {
+            width: 7rem;
+          }
+        }
+
+        .info-label {
+          font-weight: bold;
+          margin-bottom: 3px;
+        }
+
+        .info-data {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  iframe.movie-trailer {
+    width: 100%;
+    height: 200px;
+
+    @include layout-bp(sm) {
+      height: 350px;
+    }
+
+    @include layout-bp(md) {
+      height: 450px;
+    }
+
+    @include layout-bp(gt-md) {
+      height: 650px;
+    }
+  }
+}
+
+div.error-block {
+  nb-icon {
+    width: 3em;
+    height: 3em;
+  }
+
+  h1 {
+    text-align: center;
+
+    @include layout-bp(gt-sm) {
+      text-align: left;
+    }
+  }
+}

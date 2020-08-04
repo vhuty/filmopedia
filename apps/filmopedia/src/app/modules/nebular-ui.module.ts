@@ -9,6 +9,7 @@ import {
   NbTooltipModule,
   NbSpinnerModule,
   NbBadgeModule,
+  NbProgressBarModule,
 } from '@nebular/theme';
 
 const modules = [
@@ -20,6 +21,7 @@ const modules = [
   NbTooltipModule,
   NbSpinnerModule,
   NbBadgeModule,
+  NbProgressBarModule,
 ];
 
 @NgModule({
