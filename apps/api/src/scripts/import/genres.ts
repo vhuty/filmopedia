@@ -24,7 +24,7 @@ import { Genre } from '@app/genre/genre.entity';
     /* Save new genre entities */
     await genreRepository.save(genres);
 
-    Logger.log(`Success: ${genres.length} genres imported`, 'Database import')
+    Logger.log(`Success: ${genres.length} genres imported`, 'Database import');
   } catch (err) {
     console.error(err);
   }
@@ -45,7 +45,7 @@ async function fetchGenres(url): Promise<Genre[]> {
   return genres;
 }
 
-type GenreDto = {
+interface GenreDto {
   id: number;
   name: string;
-};
+}
