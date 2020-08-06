@@ -40,11 +40,6 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  getGenreWallpaperPath(genre: string): string {
-    const genreFileName = genre.toLowerCase().replace(/\s/g, '_');
-    return `url('../../assets/images/genres/${genreFileName}.jpg')`;
-  }
-
   navigateMoviesPage(page: number): void {
     window.scroll({
       top: this.moviesSectionRef.nativeElement.offsetTop - 80,
