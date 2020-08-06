@@ -20,4 +20,5 @@
   "
 >
 </nb-icon>
-<nb-badge [text]="movie.vote_average" status="success"> </nb-badge>
+<nb-badge *ngIf="movie.vote_average as rating" [text]="rating" status="success">
+</nb-badge>
