@@ -1,5 +1,5 @@
 <a [routerLink]="['movie', movie.id]">
-  <img [src]="getCorrectMoviePosterPath()" [alt]="movie.title" />
+  <img [src]="movie | moviePoster" [alt]="movie.title" />
 </a>
 <a [routerLink]="['movie', movie.id]" class="movie-name h6 text-success">
   {{ movie.original_title }}

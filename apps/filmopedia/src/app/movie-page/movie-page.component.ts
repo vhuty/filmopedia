@@ -4,7 +4,6 @@ import {
   Title,
   DomSanitizer,
   SafeResourceUrl,
-  SafeUrl,
 } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs';
@@ -23,7 +22,6 @@ export class MoviePageComponent implements OnInit, OnDestroy {
   movie: MovieDetails;
   movieSub: Subscription;
   movieTrailerSrc: SafeResourceUrl;
-  moviePosterSrc: SafeUrl;
   isFavoriteMovie: boolean;
   errorMsg: string;
   movieRating = 0;
@@ -56,19 +54,11 @@ export class MoviePageComponent implements OnInit, OnDestroy {
           this.titleService.setTitle(
             `${movie.title} | ${environment.projectName}`
           );
-          this.setMoviePosterSrc();
           this.setMovieTrailerSrc();
           setTimeout(() => (this.movieRating = movie.vote_average * 10), 500);
         },
         (errorMsg: string) => (this.errorMsg = errorMsg)
       );
-  }
-
-  setMoviePosterSrc(): void {
-    const posterPath = this.movie.poster_path || this.movie.backdrop_path;
-    this.moviePosterSrc = this._sanitizer.bypassSecurityTrustUrl(
-      `https://image.tmdb.org/t/p/w300_and_h450_bestv2${posterPath}`
-    );
   }
 
   setMovieTrailerSrc(): void {
