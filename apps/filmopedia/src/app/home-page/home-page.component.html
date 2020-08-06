@@ -17,7 +17,7 @@
         <div
           class="wrapper"
           fxFlex
-          [style.background-image]="getGenreWallpaperPath(genre.name)"
+          [style.background-image]="genre.name | genreWallpaper"
         ></div>
       </nb-card>
     </div>
