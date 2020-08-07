@@ -35,8 +35,12 @@
     @include movie-card-width(5, $spacer);
   }
 
-  @include layout-bp(gt-md) {
+  @include layout-bp(lg) {
     @include movie-card-width(6, $spacer);
+  }
+
+  @include layout-bp(gt-lg) {
+    @include movie-card-width(7, $spacer);
   }
 
   .poster-wrapper img {
