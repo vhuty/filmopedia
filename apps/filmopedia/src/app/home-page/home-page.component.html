@@ -1,25 +1,32 @@
-<main fxLayout="column">
-  <section fxLayout="column">
+<main fxLayout="column" fxLayoutGap.gt-sm="10px">
+  <section fxLayout="column" fxLayoutGap="5px">
     <span class="h5 text-warning">Genres:</span>
     <div
-      fxLayout="row"
-      class="genres-list"
       *ngIf="genres$ | async as genres; else genresLoader"
+      class="genres-swiper"
     >
-      <nb-card
-        *ngFor="let genre of genres"
-        class="genre-card h5"
-        fxFlex="200px"
-      >
-        <span>
-          {{ genre.name }}
-        </span>
-        <div
-          class="wrapper"
-          fxFlex
-          [style.background-image]="genre.name | genreWallpaper"
-        ></div>
-      </nb-card>
+      <div class="swiper-container" [swiper]="genresSwiperConfig">
+        <div class="swiper-wrapper">
+          <nb-card
+            *ngFor="let genre of genres"
+            class="swiper-slide genre-card h5"
+          >
+            <span>
+              {{ genre.name }}
+            </span>
+            <div
+              class="wrapper"
+              fxFlex
+              [style.background-image]="genre.name | genreWallpaper"
+            ></div>
+          </nb-card>
+        </div>
+
+        <div class="swiper-pagination" fxHide.gt-sm></div>
+      </div>
+
+      <div class="swiper-button-prev" fxHide.lt-md></div>
+      <div class="swiper-button-next" fxHide.lt-md></div>
     </div>
     <ng-template #genresLoader>
       <div
@@ -34,15 +41,14 @@
   <section fxLayout="column" #moviesSection>
     <span class="h5 text-warning">Movies:</span>
     <div *ngIf="movies$ | async as movies; else moviesLoader">
-      <div fxLayout="row wrap" fxLayoutAlign="start start">
+      <div fxLayout="row wrap" fxLayoutAlign="start start" class="movies-list">
         <filmopedia-movie-card *ngFor="let movie of movies" [movie]="movie">
         </filmopedia-movie-card>
       </div>
       <div
         fxLayoutAlign="center center"
         fxLayoutGap="20px"
-        class="movies-navigation"
-        ngClass.xs="movies-navigation_mobile"
+        class="movies-pagination"
       >
         <button
           nbButton

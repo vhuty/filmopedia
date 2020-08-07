@@ -1,41 +1,65 @@
-@import '../../themes.scss';
+@import '~@angular/flex-layout/mq';
 
-.genres-list {
-  overflow-x: auto;
+.genres-swiper {
+  position: relative;
 
-  .genre-card {
+  .swiper-container {
     height: 100px;
-    margin: 10px;
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
+    padding-bottom: 30px;
+    box-sizing: content-box;
 
-    .wrapper {
-      background: no-repeat center center;
-      background-size: cover;
-      transition: all 0.5s;
+    .genre-card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden !important;
+
+      .wrapper {
+        background: no-repeat center center;
+        background-size: cover;
+        transition: all 0.5s;
+      }
+
+      span {
+        width: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow: 2px 2px 1px #000;
+        text-align: center;
+        z-index: 10;
+      }
+
+      &:hover .wrapper,
+      &:active .wrapper {
+        transform: scale(1.15);
+      }
     }
 
-    span {
-      width: 100%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      text-shadow: 2px 2px 1px #000;
-      text-align: center;
-      z-index: 10;
+    .swiper-pagination {
+      bottom: 0;
     }
 
-    &:hover .wrapper,
-    &:active .wrapper {
-      transform: scale(1.15);
+    @include layout-bp(gt-sm) {
+      padding: 0;
     }
+  }
+
+  $navButtonPosition: -30px;
+  .swiper-button-prev {
+    left: $navButtonPosition;
+  }
+  .swiper-button-next {
+    right: $navButtonPosition;
   }
 }
 
-.movies-navigation {
-  &_mobile {
-    padding-bottom: 10px;
+.movies-list {
+  margin: 0 -7.5px;
+}
+
+@include layout-bp(xs) {
+  .movies-pagination {
+    padding-bottom: 1rem;
   }
 }
