@@ -49,6 +49,7 @@
     "dotenv": "^8.2.0",
     "eva-icons": "^1.1.2",
     "husky": "^4.2.5",
+    "ngx-swiper-wrapper": "^9.0.1",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.4",

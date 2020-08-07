@@ -14,6 +14,7 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
 
 import { AppRoutingModule } from './app-routing.module';
 import { NebularUIModule } from './modules/nebular-ui.module';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 import { MovieDurationPipe } from './core/movie-duration.pipe';
 import { MoviePageComponent } from './movie-page/movie-page.component';
 import { MoviePosterPipe } from './core/movie-poster.pipe';
@@ -40,6 +41,7 @@ import { GenreWallpaperPipe } from './core/genre-wallpaper.pipe';
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbEvaIconsModule,
     NebularUIModule,
+    SwiperModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
