@@ -19,9 +19,4 @@ export class MovieCardComponent implements OnInit {
       this.isFavoriteMovie = moviesId.includes(this.movie.id);
     });
   }
-
-  getCorrectMoviePosterPath(): string {
-    const posterPath = this.movie.poster_path || this.movie.backdrop_path;
-    return `https://image.tmdb.org/t/p/w440_and_h660_face${posterPath}`;
-  }
 }

@@ -7,7 +7,7 @@
   >
     <nb-card fxHide.xs fxFlex="300px" fxFlex.gt-md="350px">
       <nb-card-body fxLayout="column">
-        <img [src]="moviePosterSrc" [alt]="movie.title" />
+        <img [src]="movie | moviePoster" [alt]="movie.title" />
       </nb-card-body>
       <nb-card-footer fxLayout="column">
         <button
@@ -57,7 +57,7 @@
           fxLayoutGap="10px"
           fxFlexOffset="10px"
         >
-          <img [src]="moviePosterSrc" [alt]="movie.title" />
+          <img [src]="movie | moviePoster" [alt]="movie.title" />
           <button
             *ngIf="!isFavoriteMovie"
             nbButton

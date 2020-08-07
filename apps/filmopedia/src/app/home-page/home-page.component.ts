@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { Genre, Movie, MoviesResponse } from '@filmopedia/api-interfaces';
 import { MoviesService } from '../core/movies.service';
@@ -19,6 +20,44 @@ export class HomePageComponent implements OnInit {
   @ViewChild('moviesSection') moviesSectionRef: ElementRef;
   genres$: Observable<Genre[]>;
   movies$: Observable<Movie[]>;
+  genresSwiperConfig: SwiperConfigInterface = {
+    speed: 500,
+    autoplay: {
+      delay: 4000,
+    },
+    slidesPerView: 1.2,
+    centeredSlides: true,
+    centeredSlidesBounds: true,
+    spaceBetween: 15,
+    mousewheel: true,
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      dynamicBullets: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      599: {
+        slidesPerView: 4,
+        centeredSlides: false,
+      },
+      960: {
+        slidesPerView: 5,
+        centeredSlides: false,
+      },
+      1280: {
+        slidesPerView: 6,
+        centeredSlides: false,
+      },
+      1920: {
+        slidesPerView: 8,
+        centeredSlides: false,
+      },
+    },
+  };
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -38,11 +77,6 @@ export class HomePageComponent implements OnInit {
       }),
       pluck('results')
     );
-  }
-
-  getGenreWallpaperPath(genre: string): string {
-    const genreFileName = genre.toLowerCase().replace(/\s/g, '_');
-    return `url('../../assets/images/genres/${genreFileName}.jpg')`;
   }
 
   navigateMoviesPage(page: number): void {
