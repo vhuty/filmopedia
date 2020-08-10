@@ -1,9 +1,6 @@
 @import '~@angular/flex-layout/mq';
 @import '../../../themes.scss';
-
-@mixin movie-card-width($cardsPerRow, $spacer) {
-  flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
-}
+@import '../../scss/mixins';
 
 :host {
   $spacer: 15px;
@@ -48,7 +45,9 @@
   }
 
   .movie-name {
-    display: inline-block;
+    @include max-lines-text();
+
+    align-self: flex-start;
     word-break: break-word;
     text-decoration: none;
   }

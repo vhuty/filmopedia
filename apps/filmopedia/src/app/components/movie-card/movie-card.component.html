@@ -1,7 +1,11 @@
 <a [routerLink]="['movie', movie.id]">
   <img [src]="movie | moviePoster" [alt]="movie.title" />
 </a>
-<a [routerLink]="['movie', movie.id]" class="movie-name h6 text-success">
+<a
+  [routerLink]="['movie', movie.id]"
+  class="movie-name h6 text-success"
+  [title]="movie.title"
+>
   {{ movie.original_title }}
 </a>
 <span class="text-hint">{{ movie.release_date | date: 'yyyy' }}</span>

@@ -1,0 +1,10 @@
+@mixin movie-card-width($cardsPerRow, $spacer) {
+  flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+}
+
+@mixin max-lines-text($lines-number: 2) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines-number;
+  overflow: hidden;
+}

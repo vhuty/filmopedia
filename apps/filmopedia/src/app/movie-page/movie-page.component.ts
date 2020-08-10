@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   Title,
   DomSanitizer,
   SafeResourceUrl,
 } from '@angular/platform-browser';
-
 import { Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
-import { MovieDetails } from '@filmopedia/api-interfaces';
+import { MovieDetails, Movie } from '@filmopedia/api-interfaces';
 import { environment } from './../../environments/environment';
-
 import { MoviesService } from './../core/movies.service';
+
 @Component({
   selector: 'filmopedia-movie-page',
   templateUrl: './movie-page.component.html',
@@ -21,12 +21,43 @@ import { MoviesService } from './../core/movies.service';
 export class MoviePageComponent implements OnInit, OnDestroy {
   movie: MovieDetails;
   movieSub: Subscription;
+  similarMovies: Movie[];
+  similarMoviesSub: Subscription;
   movieTrailerSrc: SafeResourceUrl;
   isFavoriteMovie: boolean;
   errorMsg: string;
   movieRating = 0;
+  similarMovieHoveredCardId: number | null;
+  similarMoviesSwiperConfig: SwiperConfigInterface = {
+    speed: 500,
+    slidesPerView: 2,
+    spaceBetween: 15,
+    mousewheel: true,
+    pagination: {
+      el: '.swiper-pagination',
+      dynamicBullets: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      599: {
+        slidesPerView: 4,
+      },
+      960: {
+        slidesPerView: 5,
+        autoHeight: true,
+      },
+      1280: {
+        slidesPerView: 6,
+        autoHeight: true,
+      },
+    },
+  };
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
     public moviesService: MoviesService,
@@ -34,17 +65,23 @@ export class MoviePageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.params
       .pipe(
-        map((params: Params) => params['id']),
-        tap((movieId: string) => {
+        map((params: Params) => Number(params['id'])),
+        tap((movieId: number) => {
           this.moviesService
             .getFavoriteMovies()
             .subscribe((favMovies: number[]) => {
-              this.isFavoriteMovie = favMovies.includes(Number(movieId));
+              this.isFavoriteMovie = favMovies.includes(movieId);
+            });
+          this.similarMoviesSub = this.moviesService
+            .getSimilarMovies(movieId)
+            .subscribe((movies: Movie[]) => {
+              this.similarMovies = movies;
             });
         }),
-        switchMap((movieId: string) =>
+        switchMap((movieId: number) =>
           this.moviesService.getMovieDetails(movieId)
         )
       )
@@ -73,6 +110,9 @@ export class MoviePageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.movieSub) {
       this.movieSub.unsubscribe();
+    }
+    if (this.similarMoviesSub) {
+      this.similarMoviesSub.unsubscribe();
     }
   }
 }
