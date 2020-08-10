@@ -195,6 +195,48 @@
       </nb-card-body>
     </nb-card>
   </section>
+  <section *ngIf="similarMovies?.length" fxLayout="column" fxLayoutGap="5px">
+    <span class="h6 text-success">You may also like:</span>
+    <div class="similar-movies-swiper">
+      <div class="swiper-container" [swiper]="similarMoviesSwiperConfig">
+        <div class="swiper-wrapper">
+          <nb-card
+            *ngFor="let similarMovie of similarMovies"
+            fxLayout="column"
+            class="swiper-slide"
+            (mouseenter)="similarMovieHoveredCardId = similarMovie.id"
+            (mouseleave)="similarMovieHoveredCardId = null"
+            [accent]="
+              similarMovieHoveredCardId === similarMovie.id
+                ? 'warning'
+                : 'primary'
+            "
+          >
+            <a [routerLink]="['/movie', similarMovie.id]">
+              <img
+                [src]="similarMovie | moviePoster: 'small'"
+                [alt]="similarMovie.title"
+              />
+            </a>
+            <div class="title-block">
+              <a
+                [routerLink]="['/movie', similarMovie.id]"
+                [title]="similarMovie.title"
+                class="text-warning"
+              >
+                {{ similarMovie.title }}
+              </a>
+            </div>
+          </nb-card>
+        </div>
+
+        <div class="swiper-pagination" fxHide.gt-sm></div>
+      </div>
+
+      <div class="swiper-button-prev" fxHide.lt-md></div>
+      <div class="swiper-button-next" fxHide.lt-md></div>
+    </div>
+  </section>
 </main>
 
 <div
