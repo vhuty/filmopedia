@@ -45,11 +45,9 @@
   }
 
   .movie-name {
+    @include max-lines-text();
+
     align-self: flex-start;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
     word-break: break-word;
     text-decoration: none;
   }

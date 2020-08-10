@@ -1,4 +1,5 @@
 @import '~@angular/flex-layout/mq';
+@import '../scss/mixins';
 
 main {
   @include layout-bp(xl) {
@@ -74,10 +75,7 @@ main {
 
       a {
         display: inline-block;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
+        @include max-lines-text();
         font-weight: bold;
         text-decoration: none;
       }
