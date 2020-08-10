@@ -1,0 +1,3 @@
+@mixin movie-card-width($cardsPerRow, $spacer) {
+  flex-basis: calc(100% / #{$cardsPerRow} - #{$spacer});
+}
