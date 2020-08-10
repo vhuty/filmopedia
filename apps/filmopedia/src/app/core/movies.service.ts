@@ -8,6 +8,7 @@ import {
   MoviesResponse,
   ResponseError,
   MovieDetails,
+  Movie,
 } from '@filmopedia/api-interfaces';
 import { environment } from './../../environments/environment';
 
@@ -28,7 +29,7 @@ export class MoviesService {
     this.currMoviesPage$.subscribe();
   }
 
-  public getMovieDetails(movieId: string): Observable<MovieDetails | string> {
+  public getMovieDetails(movieId: number): Observable<MovieDetails | string> {
     return this.http
       .get<MovieDetails>(
         `${this.baseURL}/movie/${movieId}?api_key=${environment.apiKey}&append_to_response=videos,images`
@@ -51,6 +52,14 @@ export class MoviesService {
       ),
       catchError(this.handleRequestError)
     );
+  }
+
+  public getSimilarMovies(movieId: number): Observable<Movie[]> {
+    return this.http
+      .get<MoviesResponse>(
+        `${this.baseURL}/movie/${movieId}/similar?api_key=${environment.apiKey}`
+      )
+      .pipe(pluck('results'));
   }
 
   public getFavoriteMovies(): Observable<number[]> {
