@@ -183,7 +183,7 @@
       </nb-card-footer>
     </nb-card>
   </section>
-  <section fxHide.xs>
+  <section *ngIf="movieTrailerSrc" fxHide.xs>
     <nb-card>
       <nb-card-body>
         <iframe
