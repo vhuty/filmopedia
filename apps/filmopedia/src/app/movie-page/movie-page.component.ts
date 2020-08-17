@@ -104,9 +104,11 @@ export class MoviePageComponent implements OnInit, OnDestroy {
       return;
     }
     const trailer = videos.find((video) => video.type === 'Trailer');
-    this.movieTrailerSrc = this._sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.youtube.com/embed/${trailer.key}`
-    );
+    this.movieTrailerSrc =
+      trailer &&
+      this._sanitizer.bypassSecurityTrustResourceUrl(
+        `https://www.youtube.com/embed/${trailer.key}`
+      );
   }
 
   ngOnDestroy(): void {
