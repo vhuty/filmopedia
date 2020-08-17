@@ -38,10 +38,15 @@
       ></div>
     </ng-template>
   </section>
-  <section fxLayout="column" #moviesSection>
+  <section fxLayout="column" fxLayoutGap="5px" #moviesSection>
     <span class="h5 text-warning">Movies:</span>
     <div *ngIf="movies$ | async as movies; else moviesLoader">
-      <div fxLayout="row wrap" fxLayoutAlign="start start" class="movies-list">
+      <div
+        fxLayout="column"
+        fxLayout.gt-xs="row wrap"
+        fxLayoutAlign="start start"
+        class="movies-list"
+      >
         <filmopedia-movie-card *ngFor="let movie of movies" [movie]="movie">
         </filmopedia-movie-card>
       </div>
