@@ -54,12 +54,14 @@
   }
 }
 
-.movies-list {
-  margin: 0 -7.5px;
-}
-
 @include layout-bp(xs) {
   .movies-pagination {
-    padding-bottom: 1rem;
+    padding: 1rem;
+  }
+}
+
+@include layout-bp(gt-xs) {
+  .movies-list {
+    margin: 0 -0.5rem;
   }
 }
