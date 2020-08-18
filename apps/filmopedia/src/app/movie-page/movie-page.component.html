@@ -15,7 +15,7 @@
           nbButton
           hero
           status="primary"
-          (click)="moviesService.addMovieToFavorites(movie.id)"
+          (click)="moviesService.addMovieToFavorites(movie)"
         >
           <nb-icon icon="plus-circle-outline"></nb-icon>
           Add to favorites
@@ -64,7 +64,7 @@
             hero
             status="primary"
             size="small"
-            (click)="moviesService.addMovieToFavorites(movie.id)"
+            (click)="moviesService.addMovieToFavorites(movie)"
           >
             <nb-icon icon="plus-circle-outline"></nb-icon>
             Add to favorites

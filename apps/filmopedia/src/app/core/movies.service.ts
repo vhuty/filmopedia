@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { pluck, switchMap, catchError } from 'rxjs/operators';
+import { pluck, switchMap, catchError, map } from 'rxjs/operators';
 
 import {
   Genre,
@@ -9,13 +9,14 @@ import {
   ResponseError,
   MovieDetails,
   Movie,
+  FavoriteMovie,
 } from '@filmopedia/api-interfaces';
 import { environment } from './../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
   private readonly baseURL = 'https://api.themoviedb.org/3';
-  private favoriteMovies$ = new BehaviorSubject<number[]>([]);
+  private favoriteMovies$ = new BehaviorSubject<FavoriteMovie[]>([]);
   private currMoviesPage$ = new BehaviorSubject<number>(1);
 
   constructor(private http: HttpClient) {
@@ -23,8 +24,8 @@ export class MoviesService {
     if (favMoviesStr) {
       this.favoriteMovies$.next(JSON.parse(favMoviesStr));
     }
-    this.favoriteMovies$.subscribe((moviesIds: number[]) => {
-      localStorage.setItem('favoriteMovies', JSON.stringify(moviesIds));
+    this.favoriteMovies$.subscribe((favoriteMovies) => {
+      localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
     });
     this.currMoviesPage$.subscribe();
   }
@@ -62,20 +63,37 @@ export class MoviesService {
       .pipe(pluck('results'));
   }
 
-  public getFavoriteMovies(): Observable<number[]> {
+  public getFavoriteMovies(): Observable<FavoriteMovie[]> {
     return this.favoriteMovies$.asObservable();
   }
 
-  public addMovieToFavorites(movieId: number): void {
-    const favMoviesIds = this.favoriteMovies$.getValue();
-    favMoviesIds.push(movieId);
-    this.favoriteMovies$.next(favMoviesIds);
+  public addMovieToFavorites(movie: Movie): void {
+    const favMovies = this.favoriteMovies$.getValue();
+    const { id, title, poster_path, backdrop_path } = movie;
+    favMovies.push({
+      id,
+      title,
+      poster_path,
+      backdrop_path,
+    });
+    this.favoriteMovies$.next(favMovies);
   }
 
   public removeMovieFromFavorites(movieId: number): void {
-    const favMoviesIds = this.favoriteMovies$.getValue();
-    favMoviesIds.splice(favMoviesIds.indexOf(movieId), 1);
-    this.favoriteMovies$.next(favMoviesIds);
+    const favMovies = this.favoriteMovies$.getValue();
+    const movieToRemoveIndex = favMovies.findIndex(
+      (movie) => movie.id === movieId
+    );
+    favMovies.splice(movieToRemoveIndex, 1);
+    this.favoriteMovies$.next(favMovies);
+  }
+
+  public isFavoriteMovie(movieId: number): Observable<boolean> {
+    return this.getFavoriteMovies().pipe(
+      map(
+        (favMovies) => !!favMovies.find((favMovie) => favMovie.id === movieId)
+      )
+    );
   }
 
   public changeMoviesPage(page: number): void {
