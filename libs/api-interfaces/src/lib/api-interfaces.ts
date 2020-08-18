@@ -79,6 +79,13 @@ export interface Movie {
   adult: boolean;
 }
 
+export interface FavoriteMovie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+}
+
 /**
  * Defines Genre object.
  */
