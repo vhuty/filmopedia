@@ -40,8 +40,8 @@
   .favorite-movie-icon {
     cursor: pointer;
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: $spacer / 1.5;
+    right: $spacer / 1.5;
   }
 
   @include layout-bp(gt-xs) {
@@ -61,6 +61,7 @@
 
     .movie-info-block {
       padding: 0;
+      margin-top: $spacer / 3;
     }
   }
 

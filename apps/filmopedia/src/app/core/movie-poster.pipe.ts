@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Movie, MovieDetails } from '@filmopedia/api-interfaces';
+import { Movie, MovieDetails, FavoriteMovie } from '@filmopedia/api-interfaces';
 
 @Pipe({
   name: 'moviePoster',
 })
 export class MoviePosterPipe implements PipeTransform {
   transform(
-    movie: Movie | MovieDetails,
+    movie: Movie | MovieDetails | FavoriteMovie,
     posterSize: 'regular' | 'small' = 'regular'
   ): string {
     const primaryPosterPath = movie.poster_path || movie.backdrop_path;

@@ -15,7 +15,7 @@
           nbButton
           hero
           status="primary"
-          (click)="moviesService.addMovieToFavorites(movie.id)"
+          (click)="moviesService.addMovieToFavorites(movie)"
         >
           <nb-icon icon="plus-circle-outline"></nb-icon>
           Add to favorites
@@ -36,7 +36,7 @@
     <nb-card class="card-movie-info" fxFlex fxFlexAlign="stretch">
       <nb-card-header fxLayout="column">
         <div fxLayoutAlign="start center" fxLayoutGap="10px">
-          <span class="h4 text-warning">
+          <span class="text-warning" ngClass.lt-md="h5" ngClass.gt-sm="h4">
             {{ movie.title }}
           </span>
           <a
@@ -64,7 +64,7 @@
             hero
             status="primary"
             size="small"
-            (click)="moviesService.addMovieToFavorites(movie.id)"
+            (click)="moviesService.addMovieToFavorites(movie)"
           >
             <nb-icon icon="plus-circle-outline"></nb-icon>
             Add to favorites
@@ -195,7 +195,7 @@
       </nb-card-body>
     </nb-card>
   </section>
-  <section *ngIf="similarMovies?.length" fxLayout="column" fxLayoutGap="5px">
+  <section *ngIf="similarMovies?.length" fxLayout="column" fxLayoutGap="0.5rem">
     <span class="h6 text-success">You may also like:</span>
     <div class="similar-movies-swiper">
       <div class="swiper-container" [swiper]="similarMoviesSwiperConfig">

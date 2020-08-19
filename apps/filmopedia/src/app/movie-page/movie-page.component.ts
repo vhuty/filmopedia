@@ -25,6 +25,7 @@ export class MoviePageComponent implements OnInit, OnDestroy {
   similarMoviesSub: Subscription;
   movieTrailerSrc: SafeResourceUrl;
   isFavoriteMovie: boolean;
+  isFavoriteMovieSub: Subscription;
   errorMsg: string;
   movieRating = 0;
   similarMovieHoveredCardId: number | null;
@@ -70,11 +71,9 @@ export class MoviePageComponent implements OnInit, OnDestroy {
       .pipe(
         map((params: Params) => Number(params['id'])),
         tap((movieId: number) => {
-          this.moviesService
-            .getFavoriteMovies()
-            .subscribe((favMovies: number[]) => {
-              this.isFavoriteMovie = favMovies.includes(movieId);
-            });
+          this.isFavoriteMovieSub = this.moviesService
+            .isFavoriteMovie(movieId)
+            .subscribe((isFavorite) => (this.isFavoriteMovie = isFavorite));
           this.similarMoviesSub = this.moviesService
             .getSimilarMovies(movieId)
             .subscribe((movies: Movie[]) => {
@@ -104,17 +103,16 @@ export class MoviePageComponent implements OnInit, OnDestroy {
       return;
     }
     const trailer = videos.find((video) => video.type === 'Trailer');
-    this.movieTrailerSrc = this._sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.youtube.com/embed/${trailer.key}`
-    );
+    this.movieTrailerSrc =
+      trailer &&
+      this._sanitizer.bypassSecurityTrustResourceUrl(
+        `https://www.youtube.com/embed/${trailer.key}`
+      );
   }
 
   ngOnDestroy(): void {
-    if (this.movieSub) {
-      this.movieSub.unsubscribe();
-    }
-    if (this.similarMoviesSub) {
-      this.similarMoviesSub.unsubscribe();
-    }
+    this.movieSub?.unsubscribe();
+    this.similarMoviesSub?.unsubscribe();
+    this.isFavoriteMovieSub?.unsubscribe();
   }
 }
