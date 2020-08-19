@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import {
   NbLayoutModule,
-  NbSearchModule,
   NbCardModule,
   NbButtonModule,
   NbIconModule,
@@ -10,11 +9,12 @@ import {
   NbSpinnerModule,
   NbBadgeModule,
   NbProgressBarModule,
+  NbActionsModule,
+  NbPopoverModule,
 } from '@nebular/theme';
 
 const modules = [
   NbLayoutModule,
-  NbSearchModule,
   NbButtonModule,
   NbCardModule,
   NbIconModule,
@@ -22,6 +22,8 @@ const modules = [
   NbSpinnerModule,
   NbBadgeModule,
   NbProgressBarModule,
+  NbActionsModule,
+  NbPopoverModule,
 ];
 
 @NgModule({
