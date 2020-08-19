@@ -69,16 +69,24 @@ main {
   .similar-movies-swiper {
     position: relative;
 
-    nb-card .title-block {
-      padding: 0 5px 5px;
-      text-align: center;
+    nb-card {
+      margin-bottom: 0;
 
-      a {
-        display: inline-block;
-        @include max-lines-text();
-        font-weight: bold;
-        text-decoration: none;
+      .title-block {
+        padding: 0.5rem;
+        text-align: center;
+
+        a {
+          display: inline-block;
+          @include max-lines-text();
+          font-weight: bold;
+          text-decoration: none;
+        }
       }
+    }
+
+    .swiper-container {
+      padding-bottom: 2rem;
     }
 
     .swiper-pagination-bullets {
