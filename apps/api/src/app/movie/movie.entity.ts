@@ -1,6 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Relations } from 'src/constants/relations';
 
-@Entity()
+@Entity({
+  name: Relations.MOVIES,
+})
 export class Movie {
   @PrimaryGeneratedColumn()
   id: number;

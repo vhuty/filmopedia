@@ -1,11 +1,12 @@
+import 'reflect-metadata';
 import { HttpService } from '@nestjs/common/http';
 import { Logger } from '@nestjs/common';
 import { getConnection } from './connection';
 
-import { ConfigService } from '@config/config.service';
-import { Genre } from '@app/genre/genre.entity';
+import { ConfigService } from '@api/config/config.service';
+import { Genre } from '@api/app/genre/genre.entity';
 
-(async () => {
+async function importGenres() {
   const config = new ConfigService();
   const { TMDbApiKey } = config.getCredentialsConfig();
 
@@ -15,10 +16,10 @@ import { Genre } from '@app/genre/genre.entity';
   try {
     const genres = await fetchGenres(url.href);
 
-    const connection = await getConnection();
+    const connection = await getConnection([Genre]);
     const genreRepository = connection.getRepository(Genre);
 
-    /* Truncate genres relation */
+    /* Truncate genres table */
     await genreRepository.clear();
 
     /* Save new genre entities */
@@ -28,14 +29,15 @@ import { Genre } from '@app/genre/genre.entity';
   } catch (err) {
     console.error(err);
   }
-})();
+}
 
-async function fetchGenres(url): Promise<Genre[]> {
+async function fetchGenres(url: string): Promise<Genre[]> {
   const http = new HttpService();
 
-  const response = await http.get(url.href).toPromise();
-  const genresDto: GenreDto[] = response.data;
+  const { data } = await http.get(url).toPromise();
+  const genresDto: GenreDto[] = data.genres;
 
+  /* Generate genre slug and cast a DTO to the ORM Genre entity */
   const genres: Genre[] = genresDto.map(({ id, name }) => {
     const slug = name.toLowerCase().replace(/\W/g, '_');
 
@@ -45,7 +47,9 @@ async function fetchGenres(url): Promise<Genre[]> {
   return genres;
 }
 
-interface GenreDto {
+type GenreDto = {
   id: number;
   name: string;
-}
+};
+
+export { importGenres };

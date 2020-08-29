@@ -14,9 +14,10 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@filmopedia/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@filmopedia/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@api/*": ["./apps/api/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,38 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "API (NestJS)",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "program": "${workspaceFolder}/apps/api/src/main.ts",
+      "envFile": "${workspaceFolder}/apps/api/.env",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "preLaunchTask": "npm: nx build api",
+      "autoAttachChildProcesses": true,
+      "outFiles": ["${workspaceFolder}/dist/apps/api/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Tools",
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "program": "${workspaceFolder}/tools/main.ts",
+      "envFile": "${workspaceFolder}/apps/api/.env",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "preLaunchTask": "npm: nx build tools",
+      "autoAttachChildProcesses": true,
+      "outFiles": ["${workspaceFolder}/dist/tools/**/*.js"]
+    }
+  ]
+}

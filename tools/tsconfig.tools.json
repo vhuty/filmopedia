@@ -1,11 +1,20 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../dist/out-tsc/tools",
-    "rootDir": ".",
+    "outDir": "../dist/tools",
+    "baseUrl": "./",
     "module": "commonjs",
     "target": "es5",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@filmopedia/api-interfaces": ["../libs/api-interfaces/src/index.ts"],
+      "@api/*": ["../apps/api/src/*"],
+      "@config/*": ["../apps/api/src/config/*"],
+      "@app/*": ["../apps/api/src/app/*"],
+      "@constants/*": ["../apps/api/src/constants/*"],
+      "@environment": ["../apps/api/src/environments/environment.ts"],
+      "@api-interfaces": ["../libs/api-interfaces/src/index.ts"]
+    }
   },
   "include": ["**/*.ts"]
 }

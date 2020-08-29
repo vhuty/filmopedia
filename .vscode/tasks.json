@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "nx build api",
+      "problemMatcher": [],
+      "label": "npm: nx build api",
+      "detail": "Build Nx NestJS app"
+    },
+    {
+      "type": "npm",
+      "script": "nx build tools",
+      "problemMatcher": [],
+      "label": "npm: nx build tools",
+      "detail": "Build repository tools"
+    }
+  ]
+}

@@ -13,7 +13,8 @@ const {
     password,
     synchronize,
     autoLoadEntities,
-  }
+    dropSchema,
+  },
 } = environment;
 
 @Injectable()
@@ -28,10 +29,11 @@ export class ConfigService {
       password,
       synchronize,
       autoLoadEntities,
+      dropSchema,
     };
   }
 
-  getTypeOrmConnectionOptions(): ConnectionOptions {
+  getTypeOrmConnectionOptions(entities: Function[]): ConnectionOptions {
     return {
       type: 'postgres',
       host,
@@ -39,6 +41,7 @@ export class ConfigService {
       database,
       username,
       password,
+      entities,
     };
   }
 

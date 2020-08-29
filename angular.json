@@ -205,6 +205,22 @@
           }
         }
       }
+    },
+    "tools": {
+      "root": "tools",
+      "sourceRoot": "tools",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "main": "tools/main.ts",
+            "outputPath": "dist/tools",
+            "tsConfig": "tools/tsconfig.tools.json"
+          }
+        }
+      }
     }
   },
   "cli": {

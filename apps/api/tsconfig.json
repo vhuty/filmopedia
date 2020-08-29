@@ -8,6 +8,7 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@config/*": ["./src/config/*"],
+      "@constants/*": ["./src/constants/*"],
       "@environment": ["./src/environments/environment.ts"],
       "@api-interfaces": ["../../libs/api-interfaces/src/index.ts"]
     }
