@@ -4,8 +4,65 @@
     {{ projectName }}
   </button>
 </div>
-<nb-search
-  type="rotate-layout"
-  placeholder="Search movie.."
-  ngClass.gt-sm="search-btn_desktop"
-></nb-search>
+
+<nb-actions>
+  <nb-action
+    icon="star"
+    [nbPopover]="favoriteMoviesRef"
+    [badgeText]="favoriteMovies.length >= 100 ? '99+' : favoriteMovies.length"
+    badgePosition="top right"
+    badgeStatus="primary"
+  >
+  </nb-action>
+</nb-actions>
+
+<ng-template #favoriteMoviesRef>
+  <div class="favorite-movies-popover">
+    <div fxLayoutAlign="space-between center" class="header">
+      <span class="text-warning h6">
+        My Favorite Movies
+      </span>
+      <button nbButton ghost (click)="favoriteMoviesPopover.hide()">
+        <nb-icon icon="close" status="basic"></nb-icon>
+      </button>
+    </div>
+    <ul
+      *ngIf="favoriteMovies.length; else noFavMovies"
+      fxLayout="column"
+      class="favorite-movies-list"
+    >
+      <li
+        *ngFor="let favMovie of favoriteMovies; trackBy: favMovie?.id"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        class="fav-movie-item"
+      >
+        <img [src]="favMovie | moviePoster: 'small'" [alt]="favMovie.title" />
+        <div fxFlex fxLayoutAlign="start center" class="info-block">
+          <a
+            class="text-success"
+            (click)="navigateToFavoriteMoviePage(favMovie.id)"
+            [title]="favMovie.title"
+          >
+            {{ favMovie.title }}
+          </a>
+        </div>
+        <button
+          nbButton
+          ghost
+          (click)="
+            $event.stopPropagation();
+            moviesService.removeMovieFromFavorites(favMovie.id)
+          "
+        >
+          <nb-icon icon="trash-outline" status="danger"></nb-icon>
+        </button>
+      </li>
+    </ul>
+    <ng-template #noFavMovies>
+      <div class="no-favorite-movies-block">
+        <span class="text-hint subtitle-2">No favorite movies yet.</span>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

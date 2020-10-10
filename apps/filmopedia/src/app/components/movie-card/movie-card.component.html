@@ -1,16 +1,20 @@
-<a [routerLink]="['movie', movie.id]">
-  <img [src]="movie | moviePoster" [alt]="movie.title" />
+<a [routerLink]="['/movie', movie.id]">
+  <img [src]="movie | moviePoster" [alt]="movie.title" fxFlex.xs="100px" />
 </a>
-<a
-  [routerLink]="['movie', movie.id]"
-  class="movie-name h6 text-success"
-  [title]="movie.title"
->
-  {{ movie.original_title }}
-</a>
-<span class="text-hint">{{ movie.release_date | date: 'yyyy' }}</span>
+<div fxLayout="column" fxFlex class="movie-info-block">
+  <a
+    [routerLink]="['/movie', movie.id]"
+    class="movie-title text-success"
+    [title]="movie.title"
+  >
+    {{ movie.title }}
+  </a>
+  <span class="text-hint">{{ movie.release_date | date: 'yyyy' }}</span>
+  <span class="overview caption" fxHide.gt-xs>{{ movie.overview }}</span>
+</div>
 <nb-icon
   fxHide
+  fxHide.xs
   [fxShow]="isFavoriteMovie"
   class="favorite-movie-icon"
   status="warning"
@@ -20,9 +24,14 @@
   (click)="
     isFavoriteMovie
       ? moviesService.removeMovieFromFavorites(movie.id)
-      : moviesService.addMovieToFavorites(movie.id)
+      : moviesService.addMovieToFavorites(movie)
   "
 >
 </nb-icon>
-<nb-badge *ngIf="movie.vote_average as rating" [text]="rating" status="success">
+<nb-badge
+  *ngIf="movie.vote_average as rating"
+  [text]="rating"
+  status="success"
+  fxHide.xs
+>
 </nb-badge>

@@ -3,25 +3,66 @@
 @import '../../scss/mixins';
 
 :host {
-  $spacer: 15px;
+  $spacer: 1rem;
 
   display: flex;
-  flex-direction: column;
-  padding: 10px;
+  flex-direction: row !important;
+  border-radius: $spacer / 2;
+  overflow: hidden;
   position: relative;
   transition: all 0.5s;
-  margin: 0 ($spacer / 2) $spacer;
+  background-color: nb-theme(background-basic-color-1);
 
-  &:hover {
-    background-color: nb-theme(background-basic-color-1);
+  &:not(:last-child) {
+    margin-bottom: $spacer;
+  }
 
-    .favorite-movie-icon {
-      display: inline-block !important;
+  .movie-info-block {
+    padding: ($spacer / 2) $spacer;
+
+    .movie-title {
+      @include max-lines-text();
+
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.25rem;
+      align-self: flex-start;
+      word-break: break-word;
+      text-decoration: none;
+    }
+
+    .overview {
+      @include max-lines-text(4);
+      margin-top: auto;
     }
   }
 
-  @include layout-bp(xs) {
-    @include movie-card-width(2, $spacer);
+  .favorite-movie-icon {
+    cursor: pointer;
+    position: absolute;
+    bottom: $spacer / 1.5;
+    right: $spacer / 1.5;
+  }
+
+  @include layout-bp(gt-xs) {
+    flex-direction: column !important;
+    border-radius: 0;
+    background-color: transparent;
+    padding: $spacer / 1.5;
+    margin: 0 ($spacer / 2);
+
+    &:hover {
+      background-color: nb-theme(background-basic-color-1);
+
+      .favorite-movie-icon {
+        display: inline-block !important;
+      }
+    }
+
+    .movie-info-block {
+      padding: 0;
+      margin-top: $spacer / 3;
+    }
   }
 
   @include layout-bp(sm) {
@@ -38,24 +79,5 @@
 
   @include layout-bp(gt-lg) {
     @include movie-card-width(7, $spacer);
-  }
-
-  .poster-wrapper img {
-    width: 100%;
-  }
-
-  .movie-name {
-    @include max-lines-text();
-
-    align-self: flex-start;
-    word-break: break-word;
-    text-decoration: none;
-  }
-
-  .favorite-movie-icon {
-    cursor: pointer;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
   }
 }

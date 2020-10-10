@@ -1,9 +1,80 @@
+@import '../../../themes.scss';
+@import '../../scss/mixins';
+
 .logo {
   width: 40px;
   margin-right: 5px;
 }
 
-nb-search.search-btn_desktop button::after {
-  content: 'Search movie';
-  margin-left: 5px;
+nb-actions nb-action {
+  height: 2.5rem !important;
+}
+
+.favorite-movies-popover {
+  width: 90vw;
+  max-width: 350px;
+
+  .header {
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-bottom: 2px solid nb-theme(border-primary-color-5);
+  }
+
+  .favorite-movies-list {
+    $itemHeight: 6rem;
+    $popoverThemeBackColor: nb-theme(background-basic-color-1);
+
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    list-style: none;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: $itemHeight * 6;
+
+    background: linear-gradient(
+        $popoverThemeBackColor 30%,
+        rgba(255, 255, 255, 0)
+      ),
+      linear-gradient(rgba(255, 255, 255, 0), $popoverThemeBackColor 70%) 0 100%,
+      radial-gradient(
+        farthest-side at 50% 0,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      ),
+      radial-gradient(
+          farthest-side at 50% 100%,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0)
+        )
+        0 100%;
+    background-repeat: no-repeat;
+    background-color: $popoverThemeBackColor;
+    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-attachment: local, local, scroll, scroll;
+
+    .fav-movie-item {
+      height: $itemHeight;
+      border-bottom: 1px solid nb-theme(border-primary-color-5);
+
+      img {
+        height: 100%;
+      }
+
+      .info-block {
+        padding: 0 1rem;
+
+        a {
+          display: inline-block;
+          @include max-lines-text();
+          text-decoration: none;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .no-favorite-movies-block {
+    padding: 1rem;
+  }
 }
